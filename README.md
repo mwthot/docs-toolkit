@@ -1,6 +1,6 @@
 # docs-toolkit
 
-A professional documentation toolkit for Python projects.
+A professional documentation toolkit built with Python.
 
 ## Status
 
