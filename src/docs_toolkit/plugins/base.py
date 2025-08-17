@@ -1,6 +1,6 @@
-"""Base Plugin class for docs-tookit.
+"""Base Plugin class for docs-toolkit.
 
-This module defines the fundamenetal Plugin abstract base class that
+This module defines the fundamental Plugin abstract base class that
 plugins must inherit from. This is a forever contract - all plugin
 developers will depend on this interface. 
 """

@@ -29,7 +29,7 @@ class Document:
         """Initialize a Document."""
         self.path = path 
         self.content = content 
-        self.metadata= metadata if metadata is not None else {}
+        self.metadata = metadata if metadata is not None else {}
 
     def __repr__(self) -> str: 
         """Return a readable representation of the Document."""
