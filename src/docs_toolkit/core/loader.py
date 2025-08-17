@@ -7,7 +7,7 @@ instances from filesystem files. This is NOT a forever contract. We can
 from pathlib import Path 
 from typing import Optional 
 
-from docs_tookit.core.document import Document
+from docs_toolkit.core.document import Document
 
 def load_document(path: Path, encoding: str = "utf-8") -> Document: 
     """Load a file from disk and create a Document instance. 
@@ -61,7 +61,7 @@ def load_document_with_metadata(
     doc = load_document(path, encoding)
 
     # Optionally add file statistics to metadata 
-    if include_states: 
+    if include_stats: 
         stats = path.stat()
         doc.metadata["size_bytes"] = stats.st_size
         doc.metadata["modified_time"] = stats.st_mtime
