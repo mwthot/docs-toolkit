@@ -33,3 +33,8 @@ htmlcov/
 *.log
 .docs-toolkit.toml
 .docs-toolkit/
+
+# Development experiments
+scratch/
+experiments/
+*.tmp.py

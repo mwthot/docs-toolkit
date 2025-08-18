@@ -3,33 +3,38 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "docs-toolkit"
-version = "0.1.0-dev"
-description = "Professional documentation toolkit for Python projects"
+name = "corpus"
+version = "0.1.0"
+description = "How healthy is your documentation?"
 readme = "README.md"
 requires-python = ">=3.9"
 license = {text = "MIT"}
 authors = [
-    {name = "Your Name", email = "your.email@example.com"},
+    {name = "Michael Thot", email = "mw.thot@gmail.com"},
 ]
 classifiers = [
-    "Development Status :: 2 - Pre-Alpha",
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
     "Intended Audience :: Developers",
     "Topic :: Documentation",
     "Topic :: Software Development :: Documentation",
+    "Topic :: Software Development :: Quality Assurance",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Operating System :: OS Independent",
 ]
+keywords = ["documentation", "analysis", "horror", "medical", "pathology"]
 
 dependencies = [
-    # Canonical libraries only
     "click>=8.0",
     "rich>=13.0",
-    "pydantic>=2.0",
+    "watchdog>=3.0",
+    "python-markdown>=3.4",
+    "Jinja2>=3.1",
 ]
 
 [project.optional-dependencies]
@@ -42,10 +47,21 @@ dev = [
 ]
 
 [project.scripts]
-docs-toolkit = "docs_toolkit.cli.main:cli"
+corpus = "corpus.cli.main:examine"
+
+[project.urls]
+"Homepage" = "https://github.com/yourusername/corpus"
+"Bug Reports" = "https://github.com/yourusername/corpus/issues"
+"Source" = "https://github.com/yourusername/corpus"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.package-data]
+corpus = [
+    "templates/*.html",
+    "templates/*.css",
+]
 
 [tool.black]
 line-length = 88
@@ -63,21 +79,34 @@ select = [
     "C4",  # flake8-comprehensions
     "UP",  # pyupgrade
 ]
+ignore = [
+    "E501",  # line too long - let Black handle this
+    "B008",  # do not perform function calls in argument defaults
+]
 
 [tool.mypy]
 python_version = "3.9"
 warn_return_any = true
 warn_unused_configs = true
-disallow_untyped_defs = true
+disallow_untyped_defs = false  # We're building fast, not strict
+check_untyped_defs = true
+ignore_missing_imports = true  # Don't worry about library stubs
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 python_files = ["test_*.py"]
-addopts = "-ra -q --strict-markers"
+addopts = "-ra -q --strict-markers -v"
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+]
 
 [tool.coverage.run]
 branch = true
-source = ["src/docs_toolkit"]
+source = ["src/corpus"]
+omit = [
+    "*/tests/*",
+    "*/__init__.py",
+]
 
 [tool.coverage.report]
 exclude_lines = [
@@ -87,4 +116,8 @@ exclude_lines = [
     "raise NotImplementedError",
     "if __name__ == .__main__.:",
     "if TYPE_CHECKING:",
+    "pass",
 ]
+precision = 1
+show_missing = true
+skip_covered = false
